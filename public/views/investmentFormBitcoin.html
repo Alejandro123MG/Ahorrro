@@ -1,0 +1,154 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Ahorrro</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-view="dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-view="transactions">Transacciones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-view="savingGoals">Metas de Ahorro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" data-view="investments">Inversiones</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i> <span id="username"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#" data-view="profile">Perfil</a></li>
+                        <li><a class="dropdown-item" href="#" data-view="settings">Configuración</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" id="logoutBtn">Cerrar Sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="d-flex align-items-center">
+                            <div class="investment-icon bitcoin-icon me-3">
+                                <i class="bi bi-currency-bitcoin"></i>
+                            </div>
+                            <h2 class="mb-0">Nueva Inversión en Bitcoin</h2>
+                        </div>
+                        <button class="btn btn-secondary" data-view="newInvestment">
+                            <i class="bi bi-arrow-left"></i> Volver
+                        </button>
+                    </div>
+
+                    <div id="investmentError" class="alert alert-danger d-none" role="alert"></div>
+
+                    <form id="bitcoinInvestmentForm">
+                        <!-- Campos Generales -->
+                        <div class="section-title">
+                            <h5><i class="bi bi-info-circle"></i> Información General</h5>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="investmentName" class="form-label">Nombre de la inversión *</label>
+                                <input type="text" class="form-control" id="investmentName" placeholder="Ej: BTC Enero 2024" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="startDate" class="form-label">Fecha de inicio *</label>
+                                <input type="date" class="form-control" id="startDate" required>
+                            </div>
+                        </div>
+
+                        <!-- Campos Específicos de Bitcoin -->
+                        <div class="section-title mt-4">
+                            <h5><i class="bi bi-currency-bitcoin"></i> Detalles de Bitcoin</h5>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="quantityBTC" class="form-label">Cantidad comprada (BTC) *</label>
+                                <input type="number" class="form-control" id="quantityBTC" step="0.00000001" min="0" placeholder="Ej: 0.05" required>
+                                <small class="text-muted">Cantidad de Bitcoin adquirido</small>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="purchasePrice" class="form-label">Precio de compra por BTC ($) *</label>
+                                <input type="number" class="form-control" id="purchasePrice" step="0.01" min="0" placeholder="Ej: 45000" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="currentPrice" class="form-label">Precio actual por BTC ($) *</label>
+                                <input type="number" class="form-control" id="currentPrice" step="0.01" min="0" placeholder="Ej: 50000" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="exchange" class="form-label">Exchange / Plataforma</label>
+                                <input type="text" class="form-control" id="exchange" placeholder="Ej: Binance, Coinbase">
+                                <small class="text-muted">Plataforma donde compraste</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="commission" class="form-label">Comisión pagada ($)</label>
+                                <input type="number" class="form-control" id="commission" step="0.01" min="0" placeholder="Ej: 25">
+                                <small class="text-muted">Comisión de la transacción</small>
+                            </div>
+                        </div>
+
+                        <!-- Cálculos Automáticos -->
+                        <div class="section-title mt-4">
+                            <h5><i class="bi bi-calculator"></i> Resumen de Inversión</h5>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Monto inicial invertido</label>
+                                <div class="form-control-plaintext fw-bold" id="initialAmountDisplay">$0.00</div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Valor actual</label>
+                                <div class="form-control-plaintext fw-bold" id="currentValueDisplay">$0.00</div>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Rendimiento</label>
+                                <div class="form-control-plaintext fw-bold" id="performanceDisplay">0%</div>
+                            </div>
+                        </div>
+
+                        <!-- Notas -->
+                        <div class="mb-3">
+                            <label for="notes" class="form-label">Notas u observaciones</label>
+                            <textarea class="form-control" id="notes" rows="3" placeholder="Ej: Compra parcial programada"></textarea>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-save"></i> Guardar Inversión
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" data-view="newInvestment">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

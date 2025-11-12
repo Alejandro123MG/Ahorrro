@@ -1,0 +1,196 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Ahorrro</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-view="dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-view="transactions">Transacciones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-view="savingGoals">Metas de Ahorro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" data-view="investments">Inversiones</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i> <span id="username"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#" data-view="profile">Perfil</a></li>
+                        <li><a class="dropdown-item" href="#" data-view="settings">Configuración</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" id="logoutBtn">Cerrar Sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="d-flex align-items-center">
+                            <div class="investment-icon savings-fund-icon me-3">
+                                <i class="bi bi-piggy-bank"></i>
+                            </div>
+                            <h2 class="mb-0">Nueva Inversión en Fondos de Ahorro</h2>
+                        </div>
+                        <button class="btn btn-secondary" data-view="newInvestment">
+                            <i class="bi bi-arrow-left"></i> Volver
+                        </button>
+                    </div>
+
+                    <div id="investmentError" class="alert alert-danger d-none" role="alert"></div>
+
+                    <form id="savingsFundInvestmentForm">
+                        <!-- Campos Generales -->
+                        <div class="section-title">
+                            <h5><i class="bi bi-info-circle"></i> Información General</h5>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="investmentName" class="form-label">Nombre de la inversión *</label>
+                                <input type="text" class="form-control" id="investmentName" placeholder="Ej: CETES 28 días" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="startDate" class="form-label">Fecha de inicio *</label>
+                                <input type="date" class="form-control" id="startDate" required>
+                            </div>
+                        </div>
+
+                        <!-- Campos Específicos de Fondos de Ahorro -->
+                        <div class="section-title mt-4">
+                            <h5><i class="bi bi-piggy-bank"></i> Detalles del Fondo</h5>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="fundName" class="form-label">Nombre del fondo o banco *</label>
+                                <input type="text" class="form-control" id="fundName" placeholder="Ej: CetesDirecto, BBVA" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="fundType" class="form-label">Tipo de fondo *</label>
+                                <select class="form-select" id="fundType" required>
+                                    <option value="">Seleccionar...</option>
+                                    <option value="plazo-fijo">Plazo fijo</option>
+                                    <option value="ahorro-programado">Ahorro programado</option>
+                                    <option value="cetes">CETES</option>
+                                    <option value="fondos-inversion">Fondos de inversión</option>
+                                    <option value="afore">AFORE</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="initialAmount" class="form-label">Monto inicial invertido ($) *</label>
+                                <input type="number" class="form-control" id="initialAmount" step="0.01" min="0" placeholder="Ej: 50000" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="annualInterestRate" class="form-label">Tasa de interés anual (%) *</label>
+                                <input type="number" class="form-control" id="annualInterestRate" step="0.01" min="0" max="100" placeholder="Ej: 8.5" required>
+                                <small class="text-muted">Tasa anual garantizada</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="termMonths" class="form-label">Plazo (meses) *</label>
+                                <input type="number" class="form-control" id="termMonths" step="1" min="1" placeholder="Ej: 12" required>
+                                <small class="text-muted">Duración del fondo</small>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="accumulatedAmount" class="form-label">Monto acumulado actual ($) *</label>
+                                <input type="number" class="form-control" id="accumulatedAmount" step="0.01" min="0" placeholder="Ej: 52500" required>
+                                <small class="text-muted">Si se reinvierte o actualiza</small>
+                            </div>
+                        </div>
+
+                        <!-- Depósitos y Penalizaciones -->
+                        <div class="section-title mt-4">
+                            <h5><i class="bi bi-wallet2"></i> Depósitos y Penalizaciones</h5>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="additionalDeposits" class="form-label">Depósitos adicionales ($)</label>
+                                <input type="number" class="form-control" id="additionalDeposits" step="0.01" min="0" placeholder="Ej: 5000">
+                                <small class="text-muted">Dinero agregado posteriormente</small>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="earlyWithdrawalPenalty" class="form-label">Penalización por retiro anticipado (%)</label>
+                                <input type="number" class="form-control" id="earlyWithdrawalPenalty" step="0.01" min="0" max="100" placeholder="Ej: 2">
+                            </div>
+                        </div>
+
+                        <!-- Cálculos Automáticos -->
+                        <div class="section-title mt-4">
+                            <h5><i class="bi bi-calculator"></i> Resumen de Inversión</h5>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Inversión total</label>
+                                <div class="form-control-plaintext fw-bold" id="totalInvestedDisplay">$0.00</div>
+                            </div>
+
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Valor actual</label>
+                                <div class="form-control-plaintext fw-bold" id="currentValueDisplay">$0.00</div>
+                            </div>
+
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Intereses ganados</label>
+                                <div class="form-control-plaintext fw-bold text-success" id="interestEarnedDisplay">$0.00</div>
+                            </div>
+
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Rendimiento</label>
+                                <div class="form-control-plaintext fw-bold" id="performanceDisplay">0%</div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle"></i>
+                            <strong>Rendimiento estimado al vencimiento:</strong>
+                            <span id="estimatedReturnDisplay">$0.00</span>
+                        </div>
+
+                        <!-- Notas -->
+                        <div class="mb-3">
+                            <label for="notes" class="form-label">Notas u observaciones</label>
+                            <textarea class="form-control" id="notes" rows="3" placeholder="Ej: Inversión conservadora a largo plazo"></textarea>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-save"></i> Guardar Inversión
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" data-view="newInvestment">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

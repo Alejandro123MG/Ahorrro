@@ -7,16 +7,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="dashboard">Dashboard</a>
+                    <a class="nav-link" href="#" data-view="dashboard" data-i18n="nav.dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#" data-view="transactions">Transacciones</a>
+                    <a class="nav-link active" href="#" data-view="transactions" data-i18n="nav.transactions">Transacciones</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="savingGoals">Metas de Ahorro</a>
+                    <a class="nav-link" href="#" data-view="savingGoals" data-i18n="nav.savingGoals">Metas de Ahorro</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="investments">Inversiones</a>
+                    <a class="nav-link" href="#" data-view="investments" data-i18n="nav.investments">Inversiones</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -25,10 +25,10 @@
                         <i class="bi bi-person-circle"></i> <span id="username"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#" data-view="profile">Perfil</a></li>
-                        <li><a class="dropdown-item" href="#" data-view="settings">Configuración</a></li>
+                        <li><a class="dropdown-item" href="#" data-view="profile" data-i18n="nav.profile">Perfil</a></li>
+                        <li><a class="dropdown-item" href="#" data-view="settings" data-i18n="nav.settings">Configuración</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#" id="logoutBtn">Cerrar Sesión</a></li>
+                        <li><a class="dropdown-item" href="#" id="logoutBtn" data-i18n="nav.logout">Cerrar Sesión</a></li>
                     </ul>
                 </li>
             </ul>
@@ -38,27 +38,27 @@
 
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Transacciones</h1>
+        <h1 data-i18n="transactions.title">Transacciones</h1>
         <button class="btn btn-primary" data-view="newTransaction">
-            <i class="bi bi-plus-circle"></i> Nueva Transacción
+            <i class="bi bi-plus-circle"></i> <span data-i18n="transactions.new">Nueva Transacción</span>
         </button>
     </div>
 
     <!-- Filters -->
     <div class="card mb-4">
         <div class="card-body">
-            <h5 class="card-title">Filtros</h5>
+            <h5 class="card-title" data-i18n="transactions.filter">Filtros</h5>
             <div class="row">
                 <div class="col-md-3">
-                    <label for="filterType" class="form-label">Tipo</label>
+                    <label for="filterType" class="form-label" data-i18n="dashboard.type">Tipo</label>
                     <select class="form-select" id="filterType">
-                        <option value="">Todos</option>
-                        <option value="income">Ingresos</option>
-                        <option value="expense">Gastos</option>
+                        <option value="" data-i18n="transactions.all">Todos</option>
+                        <option value="income" data-i18n="transactions.income">Ingresos</option>
+                        <option value="expense" data-i18n="transactions.expense">Gastos</option>
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label for="filterCategory" class="form-label">Categoría</label>
+                    <label for="filterCategory" class="form-label" data-i18n="dashboard.category">Categoría</label>
                     <input type="text" class="form-control" id="filterCategory" placeholder="Buscar categoría">
                 </div>
                 <div class="col-md-3">
@@ -72,7 +72,7 @@
             </div>
             <div class="row mt-3">
                 <div class="col-12">
-                    <button class="btn btn-secondary" id="applyFilters">Aplicar Filtros</button>
+                    <button class="btn btn-secondary" id="applyFilters" data-i18n="transactions.filter">Aplicar Filtros</button>
                     <button class="btn btn-outline-secondary" id="clearFilters">Limpiar Filtros</button>
                 </div>
             </div>
@@ -86,17 +86,17 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Fecha</th>
-                            <th>Tipo</th>
-                            <th>Categoría</th>
-                            <th>Descripción</th>
-                            <th>Monto</th>
-                            <th>Acciones</th>
+                            <th data-i18n="dashboard.date">Fecha</th>
+                            <th data-i18n="dashboard.type">Tipo</th>
+                            <th data-i18n="dashboard.category">Categoría</th>
+                            <th data-i18n="dashboard.description">Descripción</th>
+                            <th data-i18n="dashboard.amount">Monto</th>
+                            <th data-i18n="transactions.actions">Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="transactionsTable">
                         <tr>
-                            <td colspan="6" class="text-center">Cargando...</td>
+                            <td colspan="6" class="text-center" data-i18n="common.loading">Cargando...</td>
                         </tr>
                     </tbody>
                 </table>

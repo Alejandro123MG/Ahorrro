@@ -153,3 +153,188 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+/* Investment Type Selection Cards */
+.investment-type-card {
+    padding: 2rem;
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+    background-color: white;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    height: 100%;
+}
+
+.investment-type-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
+}
+
+.investment-type-card .bi-chevron-right {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    color: #6c757d;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.investment-type-card:hover .bi-chevron-right {
+    opacity: 1;
+}
+
+/* Investment Icons */
+.investment-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.bitcoin-icon {
+    background-color: #f7931a;
+    color: white;
+}
+
+.real-estate-icon {
+    background-color: #28a745;
+    color: white;
+}
+
+.stocks-icon {
+    background-color: #007bff;
+    color: white;
+}
+
+.savings-fund-icon {
+    background-color: #6f42c1;
+    color: white;
+}
+
+/* Section Titles in Forms */
+.section-title {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.section-title h5 {
+    color: #495057;
+    font-weight: 600;
+    margin: 0;
+}
+
+.section-title i {
+    margin-right: 0.5rem;
+}
+
+/* Investment Detail Cards */
+.investment-detail-card {
+    border-left: 4px solid;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.investment-detail-card.bitcoin {
+    border-left-color: #f7931a;
+}
+
+.investment-detail-card.bienes-raices {
+    border-left-color: #28a745;
+}
+
+.investment-detail-card.acciones {
+    border-left-color: #007bff;
+}
+
+.investment-detail-card.fondos-ahorro {
+    border-left-color: #6f42c1;
+}
+
+/* Investment Stats */
+.investment-stat {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.investment-stat-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.investment-stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #212529;
+}
+
+.investment-stat-value.positive {
+    color: var(--success-color);
+}
+
+.investment-stat-value.negative {
+    color: var(--danger-color);
+}
+
+/* Performance Badge */
+.performance-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.performance-badge.positive {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.performance-badge.negative {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+/* Investment Type Badge */
+.investment-type-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.investment-type-badge.bitcoin {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+
+.investment-type-badge.bienes-raices {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.investment-type-badge.acciones {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+.investment-type-badge.fondos-ahorro {
+    background-color: #f3e5f5;
+    color: #6a1b9a;
+}

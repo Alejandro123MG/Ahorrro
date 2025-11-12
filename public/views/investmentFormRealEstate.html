@@ -1,0 +1,190 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Ahorrro</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-view="dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-view="transactions">Transacciones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-view="savingGoals">Metas de Ahorro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" data-view="investments">Inversiones</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i> <span id="username"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#" data-view="profile">Perfil</a></li>
+                        <li><a class="dropdown-item" href="#" data-view="settings">Configuración</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" id="logoutBtn">Cerrar Sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="d-flex align-items-center">
+                            <div class="investment-icon real-estate-icon me-3">
+                                <i class="bi bi-house-door"></i>
+                            </div>
+                            <h2 class="mb-0">Nueva Inversión en Bienes Raíces</h2>
+                        </div>
+                        <button class="btn btn-secondary" data-view="newInvestment">
+                            <i class="bi bi-arrow-left"></i> Volver
+                        </button>
+                    </div>
+
+                    <div id="investmentError" class="alert alert-danger d-none" role="alert"></div>
+
+                    <form id="realEstateInvestmentForm">
+                        <!-- Campos Generales -->
+                        <div class="section-title">
+                            <h5><i class="bi bi-info-circle"></i> Información General</h5>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="investmentName" class="form-label">Nombre de la inversión *</label>
+                                <input type="text" class="form-control" id="investmentName" placeholder="Ej: Casa en renta Polanco" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="startDate" class="form-label">Fecha de adquisición *</label>
+                                <input type="date" class="form-control" id="startDate" required>
+                            </div>
+                        </div>
+
+                        <!-- Campos Específicos de Bienes Raíces -->
+                        <div class="section-title mt-4">
+                            <h5><i class="bi bi-house-door"></i> Detalles de la Propiedad</h5>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="propertyType" class="form-label">Tipo de propiedad *</label>
+                                <select class="form-select" id="propertyType" required>
+                                    <option value="">Seleccionar...</option>
+                                    <option value="casa">Casa</option>
+                                    <option value="departamento">Departamento</option>
+                                    <option value="terreno">Terreno</option>
+                                    <option value="local-comercial">Local comercial</option>
+                                    <option value="oficina">Oficina</option>
+                                    <option value="bodega">Bodega</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="location" class="form-label">Ubicación *</label>
+                                <input type="text" class="form-control" id="location" placeholder="Ej: Colonia Roma, CDMX" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="purchaseValue" class="form-label">Valor de compra ($) *</label>
+                                <input type="number" class="form-control" id="purchaseValue" step="0.01" min="0" placeholder="Ej: 3500000" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="currentValue" class="form-label">Valor actual de mercado ($) *</label>
+                                <input type="number" class="form-control" id="currentValue" step="0.01" min="0" placeholder="Ej: 4000000" required>
+                            </div>
+                        </div>
+
+                        <!-- Ingresos y Gastos -->
+                        <div class="section-title mt-4">
+                            <h5><i class="bi bi-cash-stack"></i> Ingresos y Gastos</h5>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="monthlyRent" class="form-label">Renta mensual ($)</label>
+                                <input type="number" class="form-control" id="monthlyRent" step="0.01" min="0" placeholder="Ej: 15000">
+                                <small class="text-muted">Dejar en blanco si no genera renta</small>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="maintenanceCosts" class="form-label">Gastos de mantenimiento ($)</label>
+                                <input type="number" class="form-control" id="maintenanceCosts" step="0.01" min="0" placeholder="Ej: 2000">
+                                <small class="text-muted">Promedio mensual</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="taxesInsurance" class="form-label">Impuestos y seguros ($)</label>
+                                <input type="number" class="form-control" id="taxesInsurance" step="0.01" min="0" placeholder="Ej: 5000">
+                                <small class="text-muted">Monto anual</small>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="imageUrl" class="form-label">URL de imagen/documento</label>
+                                <input type="url" class="form-control" id="imageUrl" placeholder="https://...">
+                                <small class="text-muted">Fotografía o contrato</small>
+                            </div>
+                        </div>
+
+                        <!-- Cálculos Automáticos -->
+                        <div class="section-title mt-4">
+                            <h5><i class="bi bi-calculator"></i> Resumen de Inversión</h5>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Inversión inicial</label>
+                                <div class="form-control-plaintext fw-bold" id="initialAmountDisplay">$0.00</div>
+                            </div>
+
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Valor actual</label>
+                                <div class="form-control-plaintext fw-bold" id="currentValueDisplay">$0.00</div>
+                            </div>
+
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Plusvalía</label>
+                                <div class="form-control-plaintext fw-bold" id="appreciationDisplay">$0.00</div>
+                            </div>
+
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Rendimiento</label>
+                                <div class="form-control-plaintext fw-bold" id="performanceDisplay">0%</div>
+                            </div>
+                        </div>
+
+                        <!-- Notas -->
+                        <div class="mb-3">
+                            <label for="notes" class="form-label">Notas u observaciones</label>
+                            <textarea class="form-control" id="notes" rows="3" placeholder="Ej: Renta activa desde marzo 2024"></textarea>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-save"></i> Guardar Inversión
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" data-view="newInvestment">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

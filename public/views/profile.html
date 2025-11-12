@@ -7,16 +7,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="dashboard">Dashboard</a>
+                    <a class="nav-link" href="#" data-view="dashboard" data-i18n="nav.dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="transactions">Transacciones</a>
+                    <a class="nav-link" href="#" data-view="transactions" data-i18n="nav.transactions">Transacciones</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="savingGoals">Metas de Ahorro</a>
+                    <a class="nav-link" href="#" data-view="savingGoals" data-i18n="nav.savingGoals">Metas de Ahorro</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="investments">Inversiones</a>
+                    <a class="nav-link" href="#" data-view="investments" data-i18n="nav.investments">Inversiones</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -25,10 +25,10 @@
                         <i class="bi bi-person-circle"></i> <span id="username"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#" data-view="profile">Perfil</a></li>
-                        <li><a class="dropdown-item" href="#" data-view="settings">Configuración</a></li>
+                        <li><a class="dropdown-item" href="#" data-view="profile" data-i18n="nav.profile">Perfil</a></li>
+                        <li><a class="dropdown-item" href="#" data-view="settings" data-i18n="nav.settings">Configuración</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#" id="logoutBtn">Cerrar Sesión</a></li>
+                        <li><a class="dropdown-item" href="#" id="logoutBtn" data-i18n="nav.logout">Cerrar Sesión</a></li>
                     </ul>
                 </li>
             </ul>
@@ -41,25 +41,25 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="mb-4">Mi Perfil</h2>
+                    <h2 class="mb-4" data-i18n="profile.title">Mi Perfil</h2>
 
                     <div id="profileSuccess" class="alert alert-success d-none" role="alert"></div>
                     <div id="profileError" class="alert alert-danger d-none" role="alert"></div>
 
                     <form id="profileForm">
                         <div class="mb-3">
-                            <label for="profileUsername" class="form-label">Nombre de Usuario</label>
+                            <label for="profileUsername" class="form-label" data-i18n="profile.name">Nombre de Usuario</label>
                             <input type="text" class="form-control" id="profileUsername" required>
                         </div>
 
                         <div class="mb-3">
-                            <label for="profileEmail" class="form-label">Email</label>
+                            <label for="profileEmail" class="form-label" data-i18n="profile.email">Email</label>
                             <input type="email" class="form-control" id="profileEmail" required>
                         </div>
 
                         <hr class="my-4">
 
-                        <h5 class="mb-3">Cambiar Contraseña (Opcional)</h5>
+                        <h5 class="mb-3" data-i18n="profile.changePassword">Cambiar Contraseña (Opcional)</h5>
 
                         <div class="mb-3">
                             <label for="profileNewPassword" class="form-label">Nueva Contraseña</label>
@@ -73,8 +73,8 @@
                         </div>
 
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                            <button type="button" class="btn btn-outline-secondary" data-view="dashboard">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" data-i18n="common.save">Guardar Cambios</button>
+                            <button type="button" class="btn btn-outline-secondary" data-view="dashboard" data-i18n="common.cancel">Cancelar</button>
                         </div>
                     </form>
                 </div>

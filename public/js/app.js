@@ -3,7 +3,12 @@ const app = {
     currentView: 'login',
 
     init: function() {
+        // Store will auto-load preferences on init
         if (auth.isAuthenticated()) {
+            const user = auth.getUser();
+            if (user) {
+                store.setUser(user);
+            }
             this.loadView('dashboard');
         } else {
             this.loadView('login');
@@ -18,6 +23,9 @@ const app = {
 
         // Initialize view-specific logic
         this.initViewLogic(viewName);
+
+        // Update translations after view is loaded
+        store.updateTranslations();
     },
 
     initViewLogic: function(viewName) {
@@ -47,7 +55,19 @@ const app = {
                 this.initInvestments();
                 break;
             case 'newInvestment':
-                this.initNewInvestment();
+                investmentForms.initNewInvestment();
+                break;
+            case 'investmentFormBitcoin':
+                investmentForms.initBitcoinForm();
+                break;
+            case 'investmentFormRealEstate':
+                investmentForms.initRealEstateForm();
+                break;
+            case 'investmentFormStocks':
+                investmentForms.initStocksForm();
+                break;
+            case 'investmentFormSavingsFund':
+                investmentForms.initSavingsFundForm();
                 break;
             case 'profile':
                 this.initProfile();
@@ -825,93 +845,10 @@ const app = {
 
         try {
             const investments = await api.getInvestments(token);
-            this.displayInvestmentsCards(investments);
+            investmentForms.displayInvestmentsCards(investments);
         } catch (error) {
             console.error('Error loading investments:', error);
         }
-    },
-
-    displayInvestmentsCards: function(investments) {
-        const container = document.getElementById('investmentsContainer');
-
-        if (!Array.isArray(investments) || investments.length === 0) {
-            container.innerHTML = '<div class="col-12 text-center"><p>No hay inversiones</p></div>';
-            return;
-        }
-
-        container.innerHTML = investments.map(inv => {
-            const performance = inv.currentValue - inv.initialAmount;
-            const performancePercent = (performance / inv.initialAmount) * 100;
-            const performanceClass = performance >= 0 ? 'text-success' : 'text-danger';
-
-            return `
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">${inv.name}</h5>
-                            <p class="card-text">Tipo: ${inv.type}</p>
-                            <p class="card-text">Inversión inicial: $${inv.initialAmount.toFixed(2)}</p>
-                            <p class="card-text">Valor actual: $${inv.currentValue.toFixed(2)}</p>
-                            <p class="card-text ${performanceClass}">
-                                Rendimiento: $${performance.toFixed(2)} (${performancePercent.toFixed(2)}%)
-                            </p>
-                            <p class="card-text"><small class="text-muted">Fecha de inicio: ${new Date(inv.startDate).toLocaleDateString()}</small></p>
-                            <button class="btn btn-sm btn-danger" onclick="app.deleteInvestment('${inv._id}')">
-                                <i class="bi bi-trash"></i> Eliminar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }).join('');
-    },
-
-    deleteInvestment: async function(id) {
-        if (!confirm('¿Estás seguro de eliminar esta inversión?')) return;
-
-        const token = auth.getToken();
-
-        try {
-            await api.deleteInvestment(token, id);
-            this.loadView('investments');
-        } catch (error) {
-            console.error('Error deleting investment:', error);
-        }
-    },
-
-    // New Investment View
-    initNewInvestment: function() {
-        const form = document.getElementById('newInvestmentForm');
-        const errorDiv = document.getElementById('investmentError');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            errorDiv.classList.add('d-none');
-
-            const token = auth.getToken();
-
-            const investmentData = {
-                name: document.getElementById('investmentName').value,
-                type: document.getElementById('investmentType').value,
-                initialAmount: parseFloat(document.getElementById('investmentInitialAmount').value),
-                currentValue: parseFloat(document.getElementById('investmentCurrentValue').value),
-                startDate: document.getElementById('investmentStartDate').value
-            };
-
-            try {
-                const result = await api.createInvestment(token, investmentData);
-
-                if (result._id) {
-                    this.loadView('investments');
-                } else {
-                    errorDiv.textContent = result.message || 'Error al crear inversión';
-                    errorDiv.classList.remove('d-none');
-                }
-            } catch (error) {
-                errorDiv.textContent = 'Error de conexión';
-                errorDiv.classList.remove('d-none');
-            }
-        });
     },
 
     // Profile View
@@ -978,44 +915,112 @@ const app = {
 
     // Settings View
     initSettings: async function() {
-        const token = auth.getToken();
         const form = document.getElementById('settingsForm');
         const successDiv = document.getElementById('settingsSuccess');
+        const errorDiv = document.getElementById('settingsError');
 
-        try {
-            const profile = await api.getProfile(token);
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themePreviews = document.querySelectorAll('[data-theme-select]');
 
-            if (profile.preferences) {
-                document.getElementById('settingsTheme').value = profile.preferences.theme || 'light';
-                document.getElementById('settingsLanguage').value = profile.preferences.language || 'es';
-            }
+        // Language radios
+        const languageRadios = document.querySelectorAll('.language-radio');
 
-        } catch (error) {
-            console.error('Error loading settings:', error);
+        // Notifications
+        const notificationsEnabled = document.getElementById('enableNotifications');
+
+        // Load current settings from store
+        const currentTheme = store.getTheme();
+        const currentLang = store.getLanguage();
+        const currentNotifications = store.getNotifications();
+
+        // Set initial values
+        themeToggle.checked = currentTheme === 'dark';
+        updateThemePreview(currentTheme);
+
+        const langRadio = document.querySelector(`input[value="${currentLang}"]`);
+        if (langRadio) langRadio.checked = true;
+
+        notificationsEnabled.checked = currentNotifications.enabled;
+
+        // Theme toggle handler
+        themeToggle.addEventListener('change', (e) => {
+            const newTheme = e.target.checked ? 'dark' : 'light';
+            store.setTheme(newTheme);
+            updateThemePreview(newTheme);
+
+            const themeName = store.t(newTheme === 'dark' ? 'settings.themeDark' : 'settings.themeLight');
+            const message = store.getLanguage() === 'es' ? `Tema cambiado a ${themeName}` : `Theme changed to ${themeName}`;
+            notifications.success(message);
+        });
+
+        // Theme preview click handlers
+        themePreviews.forEach(preview => {
+            preview.addEventListener('click', () => {
+                const theme = preview.getAttribute('data-theme-select');
+                store.setTheme(theme);
+                themeToggle.checked = theme === 'dark';
+                updateThemePreview(theme);
+
+                const themeName = store.t(theme === 'dark' ? 'settings.themeDark' : 'settings.themeLight');
+                const message = store.getLanguage() === 'es' ? `Tema cambiado a ${themeName}` : `Theme changed to ${themeName}`;
+                notifications.success(message);
+            });
+        });
+
+        // Language change handlers
+        languageRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const newLang = e.target.value;
+                store.setLanguage(newLang);
+
+                // Show notification in NEW language
+                const message = newLang === 'es' ? 'Idioma cambiado a Español' : 'Language changed to English';
+                notifications.success(message);
+            });
+        });
+
+        // Update theme preview
+        function updateThemePreview(theme) {
+            themePreviews.forEach(preview => {
+                if (preview.getAttribute('data-theme-select') === theme) {
+                    preview.classList.add('active');
+                } else {
+                    preview.classList.remove('active');
+                }
+            });
         }
 
+        // Update browser info
+        document.getElementById('browserInfo').textContent = navigator.userAgent.split(' ').pop();
+        document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString();
+
+        // Form submission
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             successDiv.classList.add('d-none');
+            errorDiv.classList.add('d-none');
 
-            const preferences = {
-                preferences: {
-                    theme: document.getElementById('settingsTheme').value,
-                    language: document.getElementById('settingsLanguage').value
-                }
-            };
+            // Save notifications
+            store.setNotifications({
+                enabled: notificationsEnabled.checked
+            });
 
-            try {
-                const result = await api.updateProfile(token, preferences);
+            // Save preferences to backend
+            const result = await store.savePreferences();
 
-                if (result._id) {
-                    successDiv.textContent = 'Preferencias guardadas correctamente';
-                    successDiv.classList.remove('d-none');
-                } else {
-                    alert('Error al guardar preferencias');
-                }
-            } catch (error) {
-                alert('Error de conexión');
+            if (result.success) {
+                const message = store.t('settings.saveSuccess');
+                notifications.success(message);
+
+                successDiv.classList.remove('d-none');
+                setTimeout(() => {
+                    successDiv.classList.add('d-none');
+                }, 3000);
+            } else {
+                const message = store.t('settings.saveError');
+                notifications.error(message);
+                errorDiv.classList.remove('d-none');
             }
         });
     }

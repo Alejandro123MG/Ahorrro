@@ -7,16 +7,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="dashboard">Dashboard</a>
+                    <a class="nav-link" href="#" data-view="dashboard" data-i18n="nav.dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="transactions">Transacciones</a>
+                    <a class="nav-link" href="#" data-view="transactions" data-i18n="nav.transactions">Transacciones</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="savingGoals">Metas de Ahorro</a>
+                    <a class="nav-link" href="#" data-view="savingGoals" data-i18n="nav.savingGoals">Metas de Ahorro</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="investments">Inversiones</a>
+                    <a class="nav-link" href="#" data-view="investments" data-i18n="nav.investments">Inversiones</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -25,10 +25,10 @@
                         <i class="bi bi-person-circle"></i> <span id="username"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#" data-view="profile">Perfil</a></li>
-                        <li><a class="dropdown-item" href="#" data-view="settings">Configuración</a></li>
+                        <li><a class="dropdown-item" href="#" data-view="profile" data-i18n="nav.profile">Perfil</a></li>
+                        <li><a class="dropdown-item" href="#" data-view="settings" data-i18n="nav.settings">Configuración</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#" id="logoutBtn">Cerrar Sesión</a></li>
+                        <li><a class="dropdown-item" href="#" id="logoutBtn" data-i18n="nav.logout">Cerrar Sesión</a></li>
                     </ul>
                 </li>
             </ul>
@@ -38,37 +38,244 @@
 
 <div class="container mt-4">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-lg-8">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="mb-4">Configuración</h2>
+                    <h2 class="mb-4" data-i18n="settings.title">Configuración</h2>
 
-                    <div id="settingsSuccess" class="alert alert-success d-none" role="alert"></div>
+                    <div id="settingsSuccess" class="alert alert-success d-none" role="alert">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <span data-i18n="settings.saveSuccess">Configuración guardada exitosamente</span>
+                    </div>
+
+                    <div id="settingsError" class="alert alert-danger d-none" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        <span data-i18n="settings.saveError">Error al guardar configuración</span>
+                    </div>
 
                     <form id="settingsForm">
-                        <div class="mb-4">
-                            <label for="settingsTheme" class="form-label">Tema</label>
-                            <select class="form-select" id="settingsTheme">
-                                <option value="light">Claro</option>
-                                <option value="dark">Oscuro</option>
-                            </select>
+                        <!-- Theme Section -->
+                        <div class="settings-section">
+                            <div class="section-title">
+                                <h5><i class="bi bi-palette"></i> <span data-i18n="settings.theme">Tema</span></h5>
+                            </div>
+
+                            <div class="row align-items-center mb-4">
+                                <div class="col-md-8">
+                                    <p class="mb-1 fw-bold" data-i18n="settings.theme">Tema</p>
+                                    <p class="text-muted small mb-0">Elige entre modo claro u oscuro</p>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    <label class="theme-toggle">
+                                        <input type="checkbox" class="theme-toggle-input" id="themeToggle">
+                                        <span class="theme-slider">
+                                            <i class="bi bi-sun-fill"></i>
+                                            <i class="bi bi-moon-fill"></i>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <div class="theme-preview light-preview" data-theme-select="light">
+                                        <div class="preview-header"></div>
+                                        <div class="preview-content">
+                                            <div class="preview-card"></div>
+                                            <div class="preview-card"></div>
+                                        </div>
+                                        <p class="text-center mt-2 small" data-i18n="settings.themeLight">Claro</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="theme-preview dark-preview" data-theme-select="dark">
+                                        <div class="preview-header"></div>
+                                        <div class="preview-content">
+                                            <div class="preview-card"></div>
+                                            <div class="preview-card"></div>
+                                        </div>
+                                        <p class="text-center mt-2 small" data-i18n="settings.themeDark">Oscuro</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="mb-4">
-                            <label for="settingsLanguage" class="form-label">Idioma</label>
-                            <select class="form-select" id="settingsLanguage">
-                                <option value="es">Español</option>
-                                <option value="en">English</option>
-                            </select>
+                        <!-- Language Section -->
+                        <div class="settings-section mt-4">
+                            <div class="section-title">
+                                <h5><i class="bi bi-translate"></i> <span data-i18n="settings.language">Idioma</span></h5>
+                            </div>
+
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <div class="language-option" data-language="es">
+                                        <input type="radio" name="language" id="langES" value="es" class="language-radio">
+                                        <label for="langES">
+                                            <div class="d-flex align-items-center">
+                                                <span class="flag-icon">🇪🇸</span>
+                                                <div class="ms-3">
+                                                    <div class="fw-bold">Español</div>
+                                                    <div class="text-muted small">Spanish</div>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="language-option" data-language="en">
+                                        <input type="radio" name="language" id="langEN" value="en" class="language-radio">
+                                        <label for="langEN">
+                                            <div class="d-flex align-items-center">
+                                                <span class="flag-icon">🇺🇸</span>
+                                                <div class="ms-3">
+                                                    <div class="fw-bold">English</div>
+                                                    <div class="text-muted small">Inglés</div>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Guardar Preferencias</button>
-                            <button type="button" class="btn btn-outline-secondary" data-view="dashboard">Cancelar</button>
+                        <!-- Notifications Section -->
+                        <div class="settings-section mt-4">
+                            <div class="section-title">
+                                <h5><i class="bi bi-bell"></i> <span data-i18n="settings.notifications">Notificaciones</span></h5>
+                            </div>
+
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" id="enableNotifications" checked>
+                                <label class="form-check-label" for="enableNotifications">
+                                    <span data-i18n="settings.notificationsEnabled">Activar notificaciones</span>
+                                </label>
+                                <p class="text-muted small ms-4 mb-0">Recibe notificaciones sobre tus transacciones y metas</p>
+                            </div>
+                        </div>
+
+                        <!-- Save Buttons -->
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-save"></i> <span data-i18n="common.save">Guardar</span> Configuración
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" data-view="dashboard">
+                                <span data-i18n="common.cancel">Cancelar</span>
+                            </button>
                         </div>
                     </form>
+                </div>
+            </div>
+
+            <!-- Info Card -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h6 class="card-title"><i class="bi bi-info-circle"></i> Información</h6>
+                    <p class="card-text small text-muted mb-1">
+                        <strong>Versión:</strong> 1.0.0
+                    </p>
+                    <p class="card-text small text-muted mb-1">
+                        <strong>Última actualización:</strong> <span id="lastUpdate">-</span>
+                    </p>
+                    <p class="card-text small text-muted mb-0">
+                        <strong>Navegador:</strong> <span id="browserInfo">-</span>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+.settings-section {
+    padding: 1.5rem 0;
+}
+
+.theme-preview {
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-preview:hover {
+    border-color: var(--input-focus-border);
+    transform: translateY(-2px);
+}
+
+.theme-preview.active {
+    border-color: var(--input-focus-border);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
+}
+
+.light-preview .preview-header {
+    background: #0d6efd;
+    height: 20px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.light-preview .preview-content {
+    background: #f8f9fa;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.light-preview .preview-card {
+    background: white;
+    height: 30px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+}
+
+.dark-preview .preview-header {
+    background: #0d6efd;
+    height: 20px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.dark-preview .preview-content {
+    background: #1a1a1a;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.dark-preview .preview-card {
+    background: #2d2d2d;
+    height: 30px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+}
+
+.language-option {
+    position: relative;
+}
+
+.language-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.language-option label {
+    display: block;
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.language-option:hover label {
+    border-color: var(--input-focus-border);
+}
+
+.language-option input[type="radio"]:checked + label {
+    border-color: var(--input-focus-border);
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+.flag-icon {
+    font-size: 2rem;
+}
+</style>

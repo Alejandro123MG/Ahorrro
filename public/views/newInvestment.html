@@ -38,49 +38,70 @@
 
 <div class="container mt-4">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-lg-10">
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h2>Nueva Inversión</h2>
+                        <h2>Agregar inversión</h2>
                         <button class="btn btn-secondary" data-view="investments">
                             <i class="bi bi-arrow-left"></i> Volver
                         </button>
                     </div>
 
-                    <div id="investmentError" class="alert alert-danger d-none" role="alert"></div>
+                    <div class="text-center mb-4">
+                        <h5 class="text-muted">¿Cómo deseas invertir tu dinero?</h5>
+                    </div>
 
-                    <form id="newInvestmentForm">
-                        <div class="mb-3">
-                            <label for="investmentName" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="investmentName" required>
+                    <!-- Investment Type Selection Grid -->
+                    <div class="row g-4">
+                        <!-- Bitcoin Card -->
+                        <div class="col-md-6">
+                            <div class="investment-type-card" data-investment-type="bitcoin">
+                                <div class="investment-icon bitcoin-icon">
+                                    <i class="bi bi-currency-bitcoin"></i>
+                                </div>
+                                <h5 class="mt-3">Bitcoin</h5>
+                                <p class="text-muted small">Inversión en criptomonedas con alta volatilidad</p>
+                                <i class="bi bi-chevron-right"></i>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="investmentType" class="form-label">Tipo de Inversión</label>
-                            <input type="text" class="form-control" id="investmentType" placeholder="Ej: Acciones, Bonos, Criptomonedas" required>
+                        <!-- Bienes Raíces Card -->
+                        <div class="col-md-6">
+                            <div class="investment-type-card" data-investment-type="bienes-raices">
+                                <div class="investment-icon real-estate-icon">
+                                    <i class="bi bi-house-door"></i>
+                                </div>
+                                <h5 class="mt-3">Bienes raíces</h5>
+                                <p class="text-muted small">Propiedades inmobiliarias y rentas</p>
+                                <i class="bi bi-chevron-right"></i>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="investmentInitialAmount" class="form-label">Monto Inicial</label>
-                            <input type="number" class="form-control" id="investmentInitialAmount" step="0.01" min="0" required>
+                        <!-- Acciones Card -->
+                        <div class="col-md-6">
+                            <div class="investment-type-card" data-investment-type="acciones">
+                                <div class="investment-icon stocks-icon">
+                                    <i class="bi bi-graph-up-arrow"></i>
+                                </div>
+                                <h5 class="mt-3">Acciones</h5>
+                                <p class="text-muted small">Inversión en mercado de valores</p>
+                                <i class="bi bi-chevron-right"></i>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="investmentCurrentValue" class="form-label">Valor Actual</label>
-                            <input type="number" class="form-control" id="investmentCurrentValue" step="0.01" min="0" required>
+                        <!-- Fondos de Ahorro Card -->
+                        <div class="col-md-6">
+                            <div class="investment-type-card" data-investment-type="fondos-ahorro">
+                                <div class="investment-icon savings-fund-icon">
+                                    <i class="bi bi-piggy-bank"></i>
+                                </div>
+                                <h5 class="mt-3">Fondos de ahorro</h5>
+                                <p class="text-muted small">Inversión con rendimiento constante</p>
+                                <i class="bi bi-chevron-right"></i>
+                            </div>
                         </div>
-
-                        <div class="mb-3">
-                            <label for="investmentStartDate" class="form-label">Fecha de Inicio</label>
-                            <input type="date" class="form-control" id="investmentStartDate" required>
-                        </div>
-
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Guardar Inversión</button>
-                            <button type="button" class="btn btn-outline-secondary" data-view="investments">Cancelar</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

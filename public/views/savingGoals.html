@@ -7,16 +7,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="dashboard">Dashboard</a>
+                    <a class="nav-link" href="#" data-view="dashboard" data-i18n="nav.dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="transactions">Transacciones</a>
+                    <a class="nav-link" href="#" data-view="transactions" data-i18n="nav.transactions">Transacciones</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#" data-view="savingGoals">Metas de Ahorro</a>
+                    <a class="nav-link active" href="#" data-view="savingGoals" data-i18n="nav.savingGoals">Metas de Ahorro</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="investments">Inversiones</a>
+                    <a class="nav-link" href="#" data-view="investments" data-i18n="nav.investments">Inversiones</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -25,10 +25,10 @@
                         <i class="bi bi-person-circle"></i> <span id="username"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#" data-view="profile">Perfil</a></li>
-                        <li><a class="dropdown-item" href="#" data-view="settings">Configuración</a></li>
+                        <li><a class="dropdown-item" href="#" data-view="profile" data-i18n="nav.profile">Perfil</a></li>
+                        <li><a class="dropdown-item" href="#" data-view="settings" data-i18n="nav.settings">Configuración</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#" id="logoutBtn">Cerrar Sesión</a></li>
+                        <li><a class="dropdown-item" href="#" id="logoutBtn" data-i18n="nav.logout">Cerrar Sesión</a></li>
                     </ul>
                 </li>
             </ul>
@@ -38,15 +38,15 @@
 
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Metas de Ahorro</h1>
+        <h1 data-i18n="savingGoals.title">Metas de Ahorro</h1>
         <button class="btn btn-primary" data-view="newSavingGoal">
-            <i class="bi bi-plus-circle"></i> Nueva Meta
+            <i class="bi bi-plus-circle"></i> <span data-i18n="savingGoals.new">Nueva Meta</span>
         </button>
     </div>
 
     <div class="row" id="savingGoalsContainer">
         <div class="col-12 text-center">
-            <p>Cargando...</p>
+            <p data-i18n="common.loading">Cargando...</p>
         </div>
     </div>
 </div>

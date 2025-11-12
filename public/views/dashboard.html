@@ -7,16 +7,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#" data-view="dashboard">Dashboard</a>
+                    <a class="nav-link active" href="#" data-view="dashboard" data-i18n="nav.dashboard">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="transactions">Transacciones</a>
+                    <a class="nav-link" href="#" data-view="transactions" data-i18n="nav.transactions">Transacciones</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="savingGoals">Metas de Ahorro</a>
+                    <a class="nav-link" href="#" data-view="savingGoals" data-i18n="nav.savingGoals">Metas de Ahorro</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-view="investments">Inversiones</a>
+                    <a class="nav-link" href="#" data-view="investments" data-i18n="nav.investments">Inversiones</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -25,10 +25,10 @@
                         <i class="bi bi-person-circle"></i> <span id="username"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#" data-view="profile">Perfil</a></li>
-                        <li><a class="dropdown-item" href="#" data-view="settings">Configuración</a></li>
+                        <li><a class="dropdown-item" href="#" data-view="profile" data-i18n="nav.profile">Perfil</a></li>
+                        <li><a class="dropdown-item" href="#" data-view="settings" data-i18n="nav.settings">Configuración</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#" id="logoutBtn">Cerrar Sesión</a></li>
+                        <li><a class="dropdown-item" href="#" id="logoutBtn" data-i18n="nav.logout">Cerrar Sesión</a></li>
                     </ul>
                 </li>
             </ul>
@@ -37,34 +37,34 @@
 </nav>
 
 <div class="container mt-4">
-    <h1 class="mb-4">Dashboard</h1>
+    <h1 class="mb-4" data-i18n="dashboard.title">Dashboard</h1>
 
     <!-- Financial Summary -->
     <div class="row mb-4">
         <div class="col-12">
             <div class="card border-primary">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0"><i class="bi bi-wallet2"></i> Resumen Financiero</h5>
+                    <h5 class="mb-0"><i class="bi bi-wallet2"></i> <span data-i18n="dashboard.financialSummary">Resumen Financiero</span></h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <h6 class="text-muted">Metas de Ahorro</h6>
+                            <h6 class="text-muted" data-i18n="dashboard.savingGoals">Metas de Ahorro</h6>
                             <div id="savingGoalsSummary" class="mb-3">
-                                <p class="text-muted">Cargando...</p>
+                                <p class="text-muted" data-i18n="common.loading">Cargando...</p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="alert alert-info" id="availableBalanceAlert">
-                                <h6><i class="bi bi-cash-coin"></i> Ingreso Disponible</h6>
+                                <h6><i class="bi bi-cash-coin"></i> <span data-i18n="dashboard.availableIncome">Ingreso Disponible</span></h6>
                                 <h3 id="availableBalance" class="mb-0">$0.00</h3>
-                                <small>Dinero que puedes gastar libremente</small>
+                                <small data-i18n="dashboard.availableIncomeDesc">Dinero que puedes gastar libremente</small>
                             </div>
                         </div>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Total Acumulado:</h5>
+                        <h5 class="mb-0"><span data-i18n="dashboard.totalAccumulated">Total Acumulado</span>:</h5>
                         <h3 class="mb-0 text-primary" id="totalAccumulated">$0.00</h3>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
         <div class="col-md-4">
             <div class="card text-white bg-success">
                 <div class="card-body">
-                    <h5 class="card-title">Balance Total</h5>
+                    <h5 class="card-title" data-i18n="dashboard.totalBalance">Balance Total</h5>
                     <h2 id="totalBalance">$0.00</h2>
                 </div>
             </div>
@@ -85,7 +85,7 @@
         <div class="col-md-4">
             <div class="card text-white bg-info">
                 <div class="card-body">
-                    <h5 class="card-title">Metas Activas</h5>
+                    <h5 class="card-title" data-i18n="dashboard.activeGoals">Metas Activas</h5>
                     <h2 id="activeSavingGoals">0</h2>
                 </div>
             </div>
@@ -93,7 +93,7 @@
         <div class="col-md-4">
             <div class="card text-white bg-warning">
                 <div class="card-body">
-                    <h5 class="card-title">Inversiones Totales</h5>
+                    <h5 class="card-title" data-i18n="dashboard.totalInvestments">Inversiones Totales</h5>
                     <h2 id="totalInvestments">$0.00</h2>
                 </div>
             </div>
@@ -103,15 +103,15 @@
     <!-- Quick Actions -->
     <div class="row mb-4">
         <div class="col-12">
-            <h4>Acciones Rápidas</h4>
+            <h4 data-i18n="dashboard.quickActions">Acciones Rápidas</h4>
             <button class="btn btn-primary me-2" data-view="newTransaction">
-                <i class="bi bi-plus-circle"></i> Nueva Transacción
+                <i class="bi bi-plus-circle"></i> <span data-i18n="dashboard.newTransaction">Nueva Transacción</span>
             </button>
             <button class="btn btn-info me-2" data-view="newSavingGoal">
-                <i class="bi bi-piggy-bank"></i> Nueva Meta
+                <i class="bi bi-piggy-bank"></i> <span data-i18n="dashboard.newGoal">Nueva Meta</span>
             </button>
             <button class="btn btn-warning" data-view="newInvestment">
-                <i class="bi bi-graph-up"></i> Nueva Inversión
+                <i class="bi bi-graph-up"></i> <span data-i18n="dashboard.newInvestment">Nueva Inversión</span>
             </button>
         </div>
     </div>
@@ -121,7 +121,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Gastos por Categoría</h5>
+                    <h5 class="card-title" data-i18n="dashboard.expensesByCategory">Gastos por Categoría</h5>
                     <canvas id="expensesByCategoryChart"></canvas>
                 </div>
             </div>
@@ -129,7 +129,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Ingresos vs Gastos</h5>
+                    <h5 class="card-title" data-i18n="dashboard.incomeVsExpenses">Ingresos vs Gastos</h5>
                     <canvas id="incomeVsExpensesChart"></canvas>
                 </div>
             </div>
@@ -141,21 +141,21 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Transacciones Recientes</h5>
+                    <h5 class="card-title" data-i18n="dashboard.recentTransactions">Transacciones Recientes</h5>
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Fecha</th>
-                                    <th>Tipo</th>
-                                    <th>Categoría</th>
-                                    <th>Descripción</th>
-                                    <th>Monto</th>
+                                    <th data-i18n="dashboard.date">Fecha</th>
+                                    <th data-i18n="dashboard.type">Tipo</th>
+                                    <th data-i18n="dashboard.category">Categoría</th>
+                                    <th data-i18n="dashboard.description">Descripción</th>
+                                    <th data-i18n="dashboard.amount">Monto</th>
                                 </tr>
                             </thead>
                             <tbody id="recentTransactions">
                                 <tr>
-                                    <td colspan="5" class="text-center">Cargando...</td>
+                                    <td colspan="5" class="text-center" data-i18n="common.loading">Cargando...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -170,9 +170,9 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Progreso de Metas de Ahorro</h5>
+                    <h5 class="card-title" data-i18n="dashboard.savingGoalsProgress">Progreso de Metas de Ahorro</h5>
                     <div id="savingGoalsProgress">
-                        <p class="text-center">Cargando...</p>
+                        <p class="text-center" data-i18n="common.loading">Cargando...</p>
                     </div>
                 </div>
             </div>
